@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import axios from 'axios';
 
 function Home() {
   const [medIdRef, setMedIdRef] = useState('-');
@@ -16,8 +17,24 @@ function Home() {
     document.getElementById('med-input').focus();
   }
 
-  function callname( inputValue ){
-    return 'unknown';
+  async function callname(inputValue) {
+    try {
+      const response = await axios.get('/api/callname', {
+        params:{
+          inputValue: inputValue
+        }
+      });
+      if(response.data.result.rows.length > 0){
+        const MedName = response.data.result.rows[0].medname;
+        return MedName;
+      }
+      else {
+        return 'unknown';
+      }
+    } catch (error) {
+      console.error('Error fetching medicine name:', error);
+      return 'unknown';
+    }
   }
 
   return (
