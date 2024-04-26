@@ -92,7 +92,11 @@ function Home() {
       
       <div className="status-container">
         <h1>STATUS : </h1>
-        <h1>{medIdRef === '' && medId === '' ? 'Waiting...' : (medIdRef === medId ? 'Match!!' : 'NOT Match!!')}</h1>
+        <h1
+          style={{ color: medIdRef === '-' && medId === '-' ? 'black' : (medIdRef === medId ? 'green' : 'red') }}
+        >
+          {medIdRef === '-' && medId === '-' ? 'Waiting...' : (medIdRef === medId ? 'Match!!' : 'NOT Match!!')}
+        </h1>
       </div>
 
     </div>
